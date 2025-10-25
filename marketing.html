@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Fix Pro - Never miss a call, never miss an opportunity. AI-powered calling agents for small businesses.">
+    <meta name="keywords" content="AI calling agent, business automation, missed calls, small business, ROI">
+    <title>AI Fix Pro - Never Miss A Call, Never Miss An Opportunity</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #8b5cf6;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 3px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--danger);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            animation: slideInFromLeft 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stats-bar h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-bar p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            opacity: 0.9;
+        }
+
+        /* Problem Section */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #64748b;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            animation: fadeIn 1s ease-out both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .problem-card:nth-child(1) { animation-delay: 0.1s; }
+        .problem-card:nth-child(2) { animation-delay: 0.2s; }
+        .problem-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .problem-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .problem-card p {
+            color: #64748b;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Cost Calculator */
+        .calculator {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 5rem 2rem;
+            margin: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><text x="10" y="50" font-size="40" fill="rgba(255,255,255,0.05)">£</text></svg>');
+            opacity: 0.5;
+        }
+
+        .calculator-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .calculator h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .calc-formula {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 600;
+        }
+
+        .calc-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .calc-result {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin: 2rem 0;
+            text-shadow: 3px 3px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ROI Section */
+        .roi {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 5rem 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .roi-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .roi-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .roi-box {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 3px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .roi-box:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
+
+        .roi-box.highlight {
+            background: white;
+            color: var(--danger);
+            border-color: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .roi-label {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .roi-amount {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .roi-mega {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            margin: 2rem 0;
+            text-shadow: 4px 4px 20px rgba(0,0,0,0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 4px 4px 20px rgba(0,0,0,0.3); }
+            50% { text-shadow: 4px 4px 40px rgba(255,255,255,0.5); }
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: var(--light);
+            padding: 5rem 2rem;
+        }
+
+        .comparison-table {
+            max-width: 1000px;
+            margin: 3rem auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-cell {
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .comparison-cell.header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .comparison-cell.bad {
+            background: #fee2e2;
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .comparison-cell.good {
+            background: #d1fae5;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .final-cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta p {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 1rem 2rem;
+            }
+
+            .problem-grid,
+            .features-grid,
+            .roi-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-cell {
+                padding: 1.5rem 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .calculator,
+            .solution,
+            .roi,
+            .final-cta {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Animations on Scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Never Miss A Call.<br>Never Miss An Opportunity.</h1>
+            <p class="subtitle">AI-Powered Calling Agents That Capture Every Lead, 24/7</p>
+            <div class="cta-buttons">
+                <a href="#roi" class="btn btn-primary">See Your ROI</a>
+                <a href="#solution" class="btn btn-secondary">How It Works</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <h2>62% of Small Business Calls Go Unanswered</h2>
+        <p>That's millions in lost revenue every year</p>
+    </div>
+
+    <!-- Problem Section -->
+    <section class="section animate-on-scroll">
+        <h2 class="section-title">The Problem Every Business Faces</h2>
+        <p class="section-subtitle">Every missed call is a missed opportunity. Here's what you're losing:</p>
+        
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">📞</div>
+                <h3>Missed Calls During Business</h3>
+                <p>Serving customers, handling orders, managing operations - your phone rings but goes unanswered.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🌙</div>
+                <h3>After-Hours Opportunities</h3>
+                <p>Your competitors are available 24/7. Every evening and weekend call you miss is revenue they capture.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">💸</div>
+                <h3>Lost Revenue</h3>
+                <p>Each unanswered call represents potential revenue walking away to your competition.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator animate-on-scroll">
+        <div class="calculator-content">
+            <h2>Let's Calculate Your Lost Revenue</h2>
+            <p style="font-size: 1.3rem; opacity: 0.95; margin-bottom: 2rem;">Here's the average for businesses missing just 10 calls per day:</p>
+            
+            <div class="calc-formula">
+                <div class="calc-item">10 calls/day</div>
+                <div>×</div>
+                <div class="calc-item">£200 avg order</div>
+                <div>×</div>
+                <div class="calc-item">365 days</div>
+            </div>
+            
+            <div class="calc-result">= £730,000</div>
+            <p style="font-size: 1.5rem; font-weight: 600;">Lost annually. To your competitors.</p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution animate-on-scroll">
+        <div class="section">
+            <h2 class="section-title" style="color: white;">Meet Your AI Calling Agent</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Professional, intelligent, and never takes a day off</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Answers Every Call</h3>
+                    <p>100% call coverage, 24/7/365. No busy signals, no voicemail, no missed opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Has Memory</h3>
+                    <p>Recognizes returning customers by name. Remembers previous conversations and preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Knows Your Business</h3>
+                    <p>Understands your products, services, and pricing. Answers questions accurately every time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Books Appointments</h3>
+                    <p>Integrates with Google Calendar. Prevents double-booking. Offers alternative times.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📨</div>
+                    <h3>Instant Notifications</h3>
+                    <p>SMS, email, WhatsApp alerts to you and your customer after every interaction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>10,000+ Concurrent Calls</h3>
+                    <p>Handle unlimited volume. Never a busy signal, even during peak times.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison animate-on-scroll">
+        <div class="section">
+            <h2 class="section-title">The Real Cost Comparison</h2>
+            <p class="section-subtitle">Even with a receptionist, you're still losing money</p>
+            
+            <div class="comparison-table">
+                <div class="comparison-row">
+                    <div class="comparison-cell header">Category</div>
+                    <div class="comparison-cell header">Human Receptionist</div>
+                    <div class="comparison-cell header">AI Fix Pro</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Annual Cost</div>
+                    <div class="comparison-cell bad">£36,000</div>
+                    <div class="comparison-cell good">£12,000</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Lost Revenue</div>
+                    <div class="comparison-cell bad">£730,000</div>
+                    <div class="comparison-cell good">£0</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Total Impact</div>
+                    <div class="comparison-cell bad">£766,000</div>
+                    <div class="comparison-cell good">£12,000</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">24/7 Coverage</div>
+                    <div class="comparison-cell bad">❌</div>
+                    <div class="comparison-cell good">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Sick Days</div>
+                    <div class="comparison-cell bad">Yes</div>
+                    <div class="comparison-cell good">Never</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Call Capacity</div>
+                    <div class="comparison-cell bad">1 at a time</div>
+                    <div class="comparison-cell good">10,000+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section id="roi" class="roi animate-on-scroll">
+        <div class="roi-container">
+            <h2 class="section-title" style="color: white;">The Return On Investment</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 3rem; opacity: 0.95;">Let's talk numbers that matter</p>
+            
+            <div class="roi-comparison">
+                <div class="roi-box">
+                    <div class="roi-label">Your Investment</div>
+                    <div class="roi-amount">£12,000</div>
+                    <p style="opacity: 0.9;">Annual AI Agent Cost</p>
+                </div>
+                <div class="roi-box highlight">
+                    <div class="roi-label">Your Returns</div>
+                    <div class="roi-amount">£766,000</div>
+                    <p>Revenue Saved + Cost Saved</p>
+                </div>
+            </div>
+            
+            <div class="roi-mega">6,283% ROI</div>
+            <p style="font-size: 1.8rem; font-weight: 600; margin-bottom: 2rem;">
+                For every £1 you invest, you get £64 back
+            </p>
+            <p style="font-size: 1.3rem; opacity: 0.9;">
+                That's not a typo. That's the power of never missing another opportunity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta animate-on-scroll">
+        <div class="final-cta-content">
+            <h2>Ready to Capture Every Opportunity?</h2>
+            <p>Deploy in days, not months. Start converting those missed calls into captured revenue.</p>
+            <div class="cta-buttons">
+                <a href="mailto:admin@aifixpro.co.uk" class="btn btn-primary">Request a Demo</a>
+                <a href="tel:+447123456789" class="btn btn-secondary">Call Us Now</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.8;">
+                100% call coverage • 24/7 availability • No sick days • Deploy in days
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem;">AI Fix Pro</p>
+        <p>Never Miss A Call. Never Miss An Opportunity.</p>
+        <p style="margin-top: 1rem;">Your AI calling assistant: <strong>Sam</strong></p>
+        <p>© 2025 AI Fix Pro. All rights reserved.</p>
+        <p style="margin-top: 2rem; opacity: 0.6;">
+            Specialized in AI solutions for automotive, healthcare, hospitality, and professional services
+        </p>
+        <p style="margin-top: 1rem; opacity: 0.8;">
+            📧 <a href="mailto:admin@aifixpro.co.uk" style="color: white; text-decoration: underline;">admin@aifixpro.co.uk</a>
+        </p>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 500);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to hero
+        let heroContent = document.querySelector('.hero-content');
+        let scrollY = 0;
+        
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            if (heroContent && scrollY < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrollY * 0.5}px)`;
+                heroContent.style.opacity = 1 - (scrollY / window.innerHeight);
+            }
+        });
+
+        // Interactive number counting for ROI
+        function animateNumber(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = current.toLocaleString('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    maximumFractionDigits: 0
+                });
+            }, 16);
+        }
+
+        // Trigger number animation when ROI section is visible
+        const roiObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const amounts = entry.target.querySelectorAll('.roi-amount');
+                    amounts.forEach((amount, index) => {
+                        const target = index === 0 ? 12000 : 766000;
+                        animateNumber(amount, target);
+                    });
+                    roiObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const roiSection = document.querySelector('.roi');
+        if (roiSection) {
+            roiObserver.observe(roiSection);
+        }
+    </script>
+</body>
+</html>
