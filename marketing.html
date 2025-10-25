@@ -591,6 +591,18 @@
 
         /* Mobile Optimizations */
         @media (max-width: 768px) {
+            nav {
+                top: 10px !important;
+                right: 10px !important;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            nav a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 1rem !important;
+            }
+
             .hero {
                 padding: 1rem;
             }
@@ -683,6 +695,16 @@
         <div class="loader"></div>
     </div>
 
+    <!-- Navigation Bar -->
+    <nav style="position: fixed; top: 20px; right: 20px; z-index: 999; display: flex; gap: 1rem;">
+        <a href="index.html" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3);" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+            🏠 Home
+        </a>
+        <a href="demo.html" style="background: rgba(255,255,255,0.95); color: #667eea; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+            🎮 Try Live Demo
+        </a>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -691,6 +713,7 @@
             <div class="cta-buttons">
                 <a href="#roi" class="btn btn-primary">See Your ROI</a>
                 <a href="#solution" class="btn btn-secondary">How It Works</a>
+                <a href="demo.html" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">🎮 Try Interactive Demo</a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -872,7 +895,7 @@
             <p>Deploy in days, not months. Start converting those missed calls into captured revenue.</p>
             <div class="cta-buttons">
                 <a href="mailto:admin@aifixpro.co.uk" class="btn btn-primary">Request a Demo</a>
-                <a href="tel:+447123456789" class="btn btn-secondary">Call Us Now</a>
+                <a href="demo.html" class="btn btn-secondary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;">🎮 Try Interactive Demo</a>
             </div>
             <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.8;">
                 100% call coverage • 24/7 availability • No sick days • Deploy in days
