@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fix Pro - Interactive Demo | All Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            opacity: 0.95;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .scenario-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .scenario-card:nth-child(1) { animation-delay: 0.1s; }
+        .scenario-card:nth-child(2) { animation-delay: 0.2s; }
+        .scenario-card:nth-child(3) { animation-delay: 0.3s; }
+        .scenario-card:nth-child(4) { animation-delay: 0.4s; }
+        .scenario-card:nth-child(5) { animation-delay: 0.5s; }
+        .scenario-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .scenario-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .scenario-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            border-radius: 13px 13px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-status {
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.ai {
+            background: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            background: white;
+            border-radius: 0 0 13px 13px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-action {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Notification Display */
+        .notification-panel {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .notification {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .notification.sms {
+            border-left-color: #3b82f6;
+        }
+
+        .notification.email {
+            border-left-color: #8b5cf6;
+        }
+
+        .notification.whatsapp {
+            border-left-color: #10b981;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .notification-icon {
+            font-size: 1.2rem;
+        }
+
+        .notification-body {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+
+        /* Calendar Display */
+        .calendar-display {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .calendar-event {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .calendar-event.conflict {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1));
+            border-left-color: var(--danger);
+        }
+
+        .event-time {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-details {
+            color: var(--dark);
+        }
+
+        .conflict-badge {
+            display: inline-block;
+            background: var(--danger);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Phone Display */
+        .phone-display {
+            background: #1e293b;
+            border-radius: 30px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        .call-status {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .caller-id {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .call-duration {
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .call-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .call-btn {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .call-btn.mute {
+            background: #e2e8f0;
+        }
+
+        .call-btn.transfer {
+            background: var(--warning);
+            color: white;
+        }
+
+        .call-btn.end {
+            background: var(--danger);
+            color: white;
+            grid-column: 2;
+        }
+
+        .call-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 4px solid var(--success);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1));
+            border-left-color: var(--warning);
+        }
+
+        .info-box h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-box p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* SMS Interface */
+        .sms-interface {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .sms-header {
+            background: #3b82f6;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .sms-conversation {
+            padding: 1.5rem;
+            min-height: 400px;
+            background: #f8fafc;
+        }
+
+        .sms-bubble {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .sms-bubble.received {
+            background: white;
+            align-self: flex-start;
+            margin-right: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sms-bubble.sent {
+            background: #3b82f6;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .modal-content {
+                max-height: 95vh;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .chat-container {
+                height: 400px;
+            }
+
+            .phone-display {
+                padding: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 1rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Fix Pro - Interactive Demo</h1>
+            <p>Experience all our AI capabilities in action</p>
+        </div>
+
+        <div class="scenarios-grid">
+            <!-- Scenario 1: Price Inquiry -->
+            <div class="scenario-card" onclick="openScenario('scenario1')">
+                <div class="scenario-icon">💰</div>
+                <h3>Scenario 1: Price Inquiry</h3>
+                <p>Customer asks for total price of MOT + Full Service. AI provides accurate pricing and books appointment.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+
+            <!-- Scenario 2: Calendar Conflict -->
+            <div class="scenario-card" onclick="openScenario('scenario2')">
+                <div class="scenario-icon">📅</div>
+                <h3>Scenario 2: Calendar Conflict</h3>
+                <p>AI detects double-booking, suggests alternative times, and sends notifications via SMS, Email & WhatsApp.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+
+            <!-- Scenario 3: Call Back Request -->
+            <div class="scenario-card" onclick="openScenario('scenario3')">
+                <div class="scenario-icon">📞</div>
+                <h3>Scenario 3: Technician Callback</h3>
+                <p>Customer needs technical advice. AI schedules callback from technician and sends confirmation.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+
+            <!-- Scenario 4: Call Transfer -->
+            <div class="scenario-card" onclick="openScenario('scenario4')">
+                <div class="scenario-icon">🔄</div>
+                <h3>Scenario 4: Call Transfer</h3>
+                <p>VIP customer or complex issue. AI seamlessly transfers call to business owner or manager.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+
+            <!-- Scenario 5: Website Chatbot -->
+            <div class="scenario-card" onclick="openScenario('scenario5')">
+                <div class="scenario-icon">💬</div>
+                <h3>Scenario 5: Website Chatbot</h3>
+                <p>Live chat on your website. Instant responses, product info, booking, and lead capture.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+
+            <!-- Scenario 6: SMS Bot -->
+            <div class="scenario-card" onclick="openScenario('scenario6')">
+                <div class="scenario-icon">📱</div>
+                <h3>Scenario 6: SMS Bot</h3>
+                <p>Customers text your business number. AI responds via SMS with booking, pricing, and updates.</p>
+                <button class="demo-btn">Try Demo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals for each scenario -->
+    
+    <!-- Scenario 1 Modal -->
+    <div id="scenario1Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario1Modal')">&times;</button>
+                <h2>💰 Scenario 1: Price Inquiry & Booking</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">MOT + Full Service Price & Appointment</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <h4>What's Happening:</h4>
+                    <p>Customer calls asking for MOT + Full Service pricing. AI agent provides accurate multi-service pricing, checks calendar availability, and completes booking with all notifications sent.</p>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-status"></div>
+                        <div>
+                            <div style="font-weight: 700;">Sam - Sam - AI Calling Agent</div>
+                            <div style="font-size: 0.85rem; opacity: 0.9;">Online</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat1">
+                        <div class="message ai">
+                            <div>GB Automotive Centre, Sam speaking. Good afternoon! How may I help you today?</div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-actions" style="width: 100%; flex-wrap: wrap;">
+                            <button class="quick-action" onclick="sendMessage('scenario1', 'What's the total price for MOT and full car service?')">Ask for MOT + Service Price</button>
+                            <button class="quick-action" onclick="sendMessage('scenario1', 'Can I book for Monday 10 AM?')">Request Monday 10 AM</button>
+                            <button class="quick-action" onclick="sendMessage('scenario1', 'My car is a Ford Focus')">Provide Car Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications1" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📨 Notifications Sent</h4>
+                    <!-- Notifications will be added here -->
+                </div>
+
+                <div class="calendar-display" id="calendar1" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📅 Google Calendar Updated</h4>
+                    <!-- Calendar event will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario 2 Modal -->
+    <div id="scenario2Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario2Modal')">&times;</button>
+                <h2>📅 Scenario 2: Calendar Conflict Detection</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Smart scheduling with alternative suggestions</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box warning">
+                    <h4>What's Happening:</h4>
+                    <p>Customer requests a time slot that's already booked. AI detects the conflict, apologizes, and offers alternative times. Multi-channel notifications are sent to both customer and business.</p>
+                </div>
+
+                <div class="calendar-display">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📅 Current Calendar Status</h4>
+                    <div class="calendar-event conflict">
+                        <div class="event-time">Monday, Oct 27 - 10:00 AM <span class="conflict-badge">BOOKED</span></div>
+                        <div class="event-details">
+                            <strong>John Smith</strong> - Toyota Corolla - Full Service<br>
+                            Duration: 2 hours
+                        </div>
+                    </div>
+                    <div class="calendar-event">
+                        <div class="event-time">Monday, Oct 27 - 2:00 PM <span style="background: var(--success);" class="conflict-badge">AVAILABLE</span></div>
+                        <div class="event-details">Slot open for booking</div>
+                    </div>
+                    <div class="calendar-event">
+                        <div class="event-time">Tuesday, Oct 28 - 10:00 AM <span style="background: var(--success);" class="conflict-badge">AVAILABLE</span></div>
+                        <div class="event-details">Slot open for booking</div>
+                    </div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-status"></div>
+                        <div>
+                            <div style="font-weight: 700;">Sam - AI Calling Agent</div>
+                            <div style="font-size: 0.85rem; opacity: 0.9;">Checking availability...</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat2">
+                        <div class="message ai">
+                            <div>GB Automotive Centre, Sam speaking. How can I help you?</div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-actions" style="width: 100%;">
+                            <button class="quick-action" onclick="sendMessage('scenario2', 'I'd like to book for Monday 10 AM')">Try Booked Slot</button>
+                            <button class="quick-action" onclick="sendMessage('scenario2', 'Tuesday 10 AM works')">Accept Alternative</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications2" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📨 Multi-Channel Notifications</h4>
+                    <!-- Notifications will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario 3 Modal -->
+    <div id="scenario3Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario3Modal')">&times;</button>
+                <h2>📞 Scenario 3: Technician Callback Request</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Complex questions routed to experts</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <h4>What's Happening:</h4>
+                    <p>Customer has technical questions beyond basic service info. AI recognizes this, schedules a callback from your technician, and notifies both parties with details.</p>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-status"></div>
+                        <div>
+                            <div style="font-weight: 700;">Sam - AI Calling Agent</div>
+                            <div style="font-size: 0.85rem; opacity: 0.9;">Ready to assist</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat3">
+                        <div class="message ai">
+                            <div>GB Automotive Centre, Sam speaking. How may I assist you?</div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-actions" style="width: 100%;">
+                            <button class="quick-action" onclick="sendMessage('scenario3', 'My check engine light is on and I hear a weird noise')">Technical Issue</button>
+                            <button class="quick-action" onclick="sendMessage('scenario3', 'Can a technician call me back today?')">Request Callback</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications3" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📨 Callback Scheduled</h4>
+                    <!-- Notifications will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario 4 Modal -->
+    <div id="scenario4Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario4Modal')">&times;</button>
+                <h2>🔄 Scenario 4: Live Call Transfer</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Seamless handoff to human staff</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box warning">
+                    <h4>What's Happening:</h4>
+                    <p>VIP customer or complex situation requiring human expertise. AI recognizes the need, briefs the manager on context, and performs warm transfer with full call history.</p>
+                </div>
+
+                <div class="phone-display">
+                    <div class="phone-screen">
+                        <div class="call-status">
+                            <div class="caller-id">Michael Johnson</div>
+                            <div class="call-duration" id="callDuration4">00:45</div>
+                            <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 10px;">
+                                <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 0.5rem;">Call Summary:</div>
+                                <div style="font-size: 0.85rem; color: var(--dark); line-height: 1.6;">
+                                    • VIP Customer (Fleet Account)<br>
+                                    • Issue: Insurance claim documentation<br>
+                                    • Requires: Manager approval<br>
+                                    • Mood: Professional, needs quick resolution
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin: 1rem 0; padding: 0.8rem;">
+                            <h4 style="font-size: 0.95rem; margin-bottom: 0.3rem;">Transfer Status:</h4>
+                            <p style="font-size: 0.85rem; margin: 0;">AI briefing manager on call context...</p>
+                        </div>
+
+                        <div class="call-controls">
+                            <button class="call-btn mute" title="Mute">🔇</button>
+                            <button class="call-btn transfer" onclick="transferCall('scenario4')" title="Transfer to Manager">🔄</button>
+                            <button class="call-btn end" title="End Call">📞</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications4" style="display: none; margin-top: 1rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📞 Transfer Complete</h4>
+                    <!-- Transfer notification will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario 5 Modal -->
+    <div id="scenario5Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario5Modal')">&times;</button>
+                <h2>💬 Scenario 5: Website Chatbot</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">24/7 instant website support</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <h4>What's Happening:</h4>
+                    <p>Website visitor browses your services at 11 PM. Chatbot engages, answers questions, provides pricing, and captures lead information - all while you sleep!</p>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-status"></div>
+                        <div>
+                            <div style="font-weight: 700;">GB Automotive Chat</div>
+                            <div style="font-size: 0.85rem; opacity: 0.9;">Typically replies instantly</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat5">
+                        <div class="message ai">
+                            <div>👋 Hi! Welcome to GB Automotive Centre. I'm here to help 24/7. What can I assist you with today?</div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-actions" style="width: 100%;">
+                            <button class="quick-action" onclick="sendMessage('scenario5', 'What services do you offer?')">Browse Services</button>
+                            <button class="quick-action" onclick="sendMessage('scenario5', 'How much for brake service?')">Ask Pricing</button>
+                            <button class="quick-action" onclick="sendMessage('scenario5', 'I need to book an appointment')">Book Online</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications5" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">📊 Lead Captured</h4>
+                    <!-- Lead capture notification will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario 6 Modal -->
+    <div id="scenario6Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal('scenario6Modal')">&times;</button>
+                <h2>📱 Scenario 6: SMS Bot</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Text message automation</p>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <h4>What's Happening:</h4>
+                    <p>Customer texts your business number for quick booking. SMS bot handles the entire conversation, checks availability, books appointment, and sends confirmation - all via text.</p>
+                </div>
+
+                <div class="sms-interface">
+                    <div class="sms-header">
+                        <div>📱 GB Automotive Centre</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">+44 7123 456789</div>
+                    </div>
+                    <div class="sms-conversation" id="sms6">
+                        <div class="sms-bubble received">
+                            Hi! GB Automotive here. How can we help you today? 🚗
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-actions" style="width: 100%;">
+                            <button class="quick-action" onclick="sendSMS('scenario6', 'Hi, need MOT for my car')">Send: MOT Request</button>
+                            <button class="quick-action" onclick="sendSMS('scenario6', 'Tomorrow at 2pm?')">Send: Time Request</button>
+                            <button class="quick-action" onclick="sendSMS('scenario6', 'Yes, book it!')">Send: Confirm</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-panel" id="notifications6" style="display: none; margin-top: 1rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">✅ SMS Booking Complete</h4>
+                    <!-- SMS confirmation will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; color: white; padding: 3rem 2rem; margin-top: 3rem;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Deploy Your AI Agent?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
+                Your AI calling assistant <strong>Sam</strong> is ready to answer every call, 24/7.
+            </p>
+            <a href="mailto:admin@aifixpro.co.uk" style="display: inline-block; background: white; color: #667eea; padding: 1rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; transition: all 0.3s ease;">
+                📧 Request a Demo - admin@aifixpro.co.uk
+            </a>
+            <p style="opacity: 0.8; margin-top: 2rem;">
+                <strong>AI Fix Pro</strong> - Never Miss A Call. Never Miss An Opportunity.
+            </p>
+            <p style="opacity: 0.7; margin-top: 1rem; font-size: 0.9rem;">
+                Specialized in AI solutions for automotive, healthcare, hospitality, and professional services
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            scenario1: {
+                conversation: [
+                    { type: 'user', text: "What's the total price for MOT and full car service?" },
+                    { type: 'ai', text: "Great question! For an MOT test it's £55, and a full car service is £150. The total would be £205. Would you like to book both services?" },
+                    { type: 'user', text: "Can I book for Monday 10 AM?" },
+                    { type: 'ai', text: "Let me check the calendar... Yes, Monday October 27th at 10:00 AM is available! What's your vehicle make and model?" },
+                    { type: 'user', text: "My car is a Ford Focus" },
+                    { type: 'ai', text: "Perfect! I've got you booked in: Ford Focus, Monday October 27th at 10:00 AM for MOT + Full Service (£205). You'll receive confirmation via SMS, email, and WhatsApp. See you Monday!" }
+                ],
+                notifications: [
+                    { type: 'sms', icon: '📱', title: 'SMS Sent to Customer', body: 'Booking confirmed! MOT + Full Service for Ford Focus on Monday Oct 27, 10 AM. Total: £205. GB Automotive Centre', time: 'Just now' },
+                    { type: 'email', icon: '📧', title: 'Email Sent to Customer', body: 'Confirmation email with booking details, service breakdown, and directions sent to customer', time: 'Just now' },
+                    { type: 'whatsapp', icon: '💬', title: 'WhatsApp Sent', body: 'WhatsApp message with booking confirmation and option to add to calendar', time: 'Just now' },
+                    { type: 'email', icon: '🔔', title: 'Business Owner Notified', body: 'New booking: Ford Focus - MOT + Full Service - Oct 27, 10 AM - £205', time: 'Just now' }
+                ],
+                calendar: {
+                    time: 'Monday, Oct 27 - 10:00 AM',
+                    details: '<strong>New Booking</strong><br>Ford Focus - MOT + Full Service<br>Duration: 2 hours<br>Total: £205'
+                }
+            },
+            scenario2: {
+                conversation: [
+                    { type: 'user', text: "I'd like to book for Monday 10 AM" },
+                    { type: 'ai', text: "Let me check that time slot for you... I'm sorry, but Monday October 27th at 10:00 AM is already booked. However, I have availability at 2:00 PM on Monday, or 10:00 AM on Tuesday. Which would work better for you?" },
+                    { type: 'user', text: "Tuesday 10 AM works" },
+                    { type: 'ai', text: "Excellent! I've booked you for Tuesday October 28th at 10:00 AM. What service do you need today?" }
+                ],
+                notifications: [
+                    { type: 'sms', icon: '📱', title: 'SMS to Customer', body: 'Booking confirmed for Tuesday Oct 28, 10 AM. Original time unavailable - alternative accepted. GB Automotive', time: 'Just now' },
+                    { type: 'email', icon: '📧', title: 'Email with Calendar Invite', body: 'Confirmation email sent with .ics calendar file attachment for easy import', time: 'Just now' },
+                    { type: 'whatsapp', icon: '💬', title: 'WhatsApp Confirmation', body: 'WhatsApp message sent with booking details and map location link', time: 'Just now' },
+                    { type: 'sms', icon: '📱', title: 'Business SMS Alert', body: 'Calendar conflict avoided. New booking: Tuesday Oct 28, 10 AM', time: 'Just now' }
+                ]
+            },
+            scenario3: {
+                conversation: [
+                    { type: 'user', text: "My check engine light is on and I hear a weird noise" },
+                    { type: 'ai', text: "I understand that must be concerning. For diagnostic issues like this, I'd like to have one of our experienced technicians call you back to discuss the symptoms in detail. When would be a good time for them to call?" },
+                    { type: 'user', text: "Can a technician call me back today?" },
+                    { type: 'ai', text: "Absolutely! I've scheduled a callback from our lead technician for this afternoon between 2-3 PM. They'll call you at this number to discuss the check engine light and noise. Is there anything else you'd like me to note for the technician?" }
+                ],
+                notifications: [
+                    { type: 'sms', icon: '📱', title: 'SMS to Customer', body: 'Technician callback scheduled for today 2-3 PM. They'll discuss your check engine light & noise issue. GB Automotive', time: 'Just now' },
+                    { type: 'email', icon: '🔧', title: 'Technician Alert', body: 'CALLBACK REQUEST: Customer reports check engine light + unusual noise. Scheduled: Today 2-3 PM. Priority: Medium', time: 'Just now' },
+                    { type: 'email', icon: '📋', title: 'Manager Notification', body: 'Callback scheduled with customer for diagnostic issue. Technician: John. Time: 2-3 PM today', time: 'Just now' }
+                ]
+            },
+            scenario5: {
+                conversation: [
+                    { type: 'user', text: "What services do you offer?" },
+                    { type: 'ai', text: "We offer comprehensive automotive services including:\n\n🔧 Full Service (£150)\n✅ MOT Testing (£55)\n🛞 Tire Services\n🔩 Brake Services\n⚙️ Engine Diagnostics\n🔋 Battery Replacement\n\nWhat service are you interested in?" },
+                    { type: 'user', text: "How much for brake service?" },
+                    { type: 'ai', text: "Brake services start from £80 for pad replacement. A full brake service including pads, discs, and fluid is £180. Would you like to book an inspection to determine what you need?" },
+                    { type: 'user', text: "I need to book an appointment" },
+                    { type: 'ai', text: "Perfect! I can help with that. Before I check availability, can I get your name and phone number? This way we can send you confirmation details." }
+                ],
+                notifications: [
+                    { type: 'email', icon: '🎯', title: 'Lead Captured', body: 'New website lead: Interested in brake service. Provided contact info. Follow-up scheduled.', time: 'Just now' },
+                    { type: 'email', icon: '📊', title: 'CRM Updated', body: 'Lead added to CRM: Brake service inquiry, Website chat, Engagement: High', time: 'Just now' }
+                ]
+            },
+            scenario6: {
+                conversation: [
+                    { type: 'sent', text: "Hi, need MOT for my car" },
+                    { type: 'received', text: "Hi! Happy to help with your MOT. It's £55 and takes about 45 minutes. When would you like to come in?" },
+                    { type: 'sent', text: "Tomorrow at 2pm?" },
+                    { type: 'received', text: "Checking... Yes! Tomorrow (Oct 26) at 2:00 PM is available. What's your car make/model and your name?" },
+                    { type: 'sent', text: "Honda Civic, name is Sarah" },
+                    { type: 'received', text: "Perfect Sarah! ✅ You're booked:\n\n📅 Oct 26, 2:00 PM\n🚗 Honda Civic\n🔧 MOT Test\n💰 £55\n\nSee you tomorrow! 🎉" }
+                ],
+                notifications: [
+                    { type: 'sms', icon: '📱', title: 'Confirmation SMS', body: 'Booking complete via SMS bot. Customer: Sarah. Service: MOT. Time: Oct 26, 2 PM. Total: £55', time: 'Just now' },
+                    { type: 'email', icon: '📧', title: 'Business Email Alert', body: 'New SMS booking: Sarah - Honda Civic - MOT - Tomorrow 2 PM', time: 'Just now' },
+                    { type: 'whatsapp', icon: '💬', title: 'Calendar Updated', body: 'Google Calendar event created automatically from SMS booking', time: 'Just now' }
+                ]
+            }
+        };
+
+        let currentStep = {};
+
+        function openScenario(scenarioId) {
+            document.getElementById(scenarioId + 'Modal').classList.add('active');
+            currentStep[scenarioId] = 0;
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function sendMessage(scenarioId, message) {
+            const chatContainer = document.getElementById('chat' + scenarioId.slice(-1));
+            const scenario = scenarios[scenarioId];
+            
+            if (!currentStep[scenarioId]) currentStep[scenarioId] = 0;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `<div>${message}</div><div class="message-time">Just now</div>`;
+            chatContainer.appendChild(userMsg);
+            
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Show typing indicator
+            const typing = document.createElement('div');
+            typing.className = 'message ai typing-indicator';
+            typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            chatContainer.appendChild(typing);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Find next AI response
+            setTimeout(() => {
+                typing.remove();
+                
+                let foundResponse = false;
+                for (let i = currentStep[scenarioId]; i < scenario.conversation.length; i++) {
+                    if (scenario.conversation[i].type === 'ai') {
+                        const aiMsg = document.createElement('div');
+                        aiMsg.className = 'message ai';
+                        aiMsg.innerHTML = `<div>${scenario.conversation[i].text}</div><div class="message-time">Just now</div>`;
+                        chatContainer.appendChild(aiMsg);
+                        currentStep[scenarioId] = i + 1;
+                        foundResponse = true;
+                        break;
+                    }
+                }
+                
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Show notifications if conversation is complete
+                if (currentStep[scenarioId] >= scenario.conversation.length && scenario.notifications) {
+                    setTimeout(() => showNotifications(scenarioId), 1000);
+                }
+                
+                // Show calendar for scenario 1
+                if (scenarioId === 'scenario1' && currentStep[scenarioId] >= scenario.conversation.length) {
+                    setTimeout(() => showCalendar(scenarioId), 2000);
+                }
+            }, 1500);
+        }
+
+        function sendSMS(scenarioId, message) {
+            const smsContainer = document.getElementById('sms6');
+            const scenario = scenarios[scenarioId];
+            
+            if (!currentStep[scenarioId]) currentStep[scenarioId] = 0;
+            
+            // Add sent message
+            const sentMsg = document.createElement('div');
+            sentMsg.className = 'sms-bubble sent';
+            sentMsg.textContent = message;
+            smsContainer.appendChild(sentMsg);
+            smsContainer.scrollTop = smsContainer.scrollHeight;
+            
+            // Find next received response
+            setTimeout(() => {
+                for (let i = currentStep[scenarioId]; i < scenario.conversation.length; i++) {
+                    if (scenario.conversation[i].type === 'received') {
+                        const receivedMsg = document.createElement('div');
+                        receivedMsg.className = 'sms-bubble received';
+                        receivedMsg.textContent = scenario.conversation[i].text;
+                        smsContainer.appendChild(receivedMsg);
+                        currentStep[scenarioId] = i + 1;
+                        break;
+                    }
+                }
+                smsContainer.scrollTop = smsContainer.scrollHeight;
+                
+                // Show notifications if conversation is complete
+                if (currentStep[scenarioId] >= scenario.conversation.length && scenario.notifications) {
+                    setTimeout(() => showNotifications(scenarioId), 1000);
+                }
+            }, 1000);
+        }
+
+        function showNotifications(scenarioId) {
+            const panel = document.getElementById('notifications' + scenarioId.slice(-1));
+            if (!panel) return;
+            
+            panel.style.display = 'block';
+            panel.innerHTML = '<h4 style="margin-bottom: 1rem; color: var(--dark);">📨 Notifications Sent</h4>';
+            
+            const scenario = scenarios[scenarioId];
+            scenario.notifications.forEach((notif, index) => {
+                setTimeout(() => {
+                    const notifDiv = document.createElement('div');
+                    notifDiv.className = `notification ${notif.type}`;
+                    notifDiv.innerHTML = `
+                        <div class="notification-header">
+                            <span class="notification-icon">${notif.icon}</span>
+                            <span>${notif.title}</span>
+                        </div>
+                        <div class="notification-body">${notif.body}</div>
+                        <div class="notification-time">${notif.time}</div>
+                    `;
+                    panel.appendChild(notifDiv);
+                }, index * 500);
+            });
+        }
+
+        function showCalendar(scenarioId) {
+            const calendar = document.getElementById('calendar1');
+            if (!calendar) return;
+            
+            calendar.style.display = 'block';
+            const scenario = scenarios[scenarioId];
+            
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'calendar-event';
+            eventDiv.innerHTML = `
+                <div class="event-time">${scenario.calendar.time} <span style="background: var(--success);" class="conflict-badge">CONFIRMED</span></div>
+                <div class="event-details">${scenario.calendar.details}</div>
+            `;
+            calendar.appendChild(eventDiv);
+        }
+
+        function transferCall(scenarioId) {
+            const notifPanel = document.getElementById('notifications4');
+            notifPanel.style.display = 'block';
+            
+            const transferDiv = document.createElement('div');
+            transferDiv.className = 'notification email';
+            transferDiv.innerHTML = `
+                <div class="notification-header">
+                    <span class="notification-icon">🔄</span>
+                    <span>Call Transferred Successfully</span>
+                </div>
+                <div class="notification-body">
+                    <strong>From:</strong> AI Agent (Sam)<br>
+                    <strong>To:</strong> Manager (David Smith)<br>
+                    <strong>Context:</strong> VIP customer, fleet account, insurance docs needed<br>
+                    <strong>Status:</strong> Manager briefed, customer connected
+                </div>
+                <div class="notification-time">Just now</div>
+            `;
+            notifPanel.appendChild(transferDiv);
+            
+            // Update call status
+            document.getElementById('callDuration4').textContent = 'Transferred to Manager';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
